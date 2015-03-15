@@ -1,0 +1,20 @@
+language: python
+python:
+#  - "2.6" # unsupported due to reportlab, which is needed for PDF downloads, not supporting 2.6.
+  - "2.7"
+# Python3 support to come with Django 1.7
+#  - "3.2"
+#  - "3.3"
+# command to install dependencies
+before_install:
+  - npm install -g less@1.7.4 # Required for static-precompiler
+  - sudo pip install codecov
+install:
+  - "pip install coveralls"
+  - "pip install ."
+  - "pip install -r requirements.txt"
+# command to run tests
+script:
+  - coverage run --branch --source=aristotle_dse manage.py test
+after_success:
+  - coveralls
