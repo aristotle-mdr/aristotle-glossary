@@ -12,12 +12,12 @@ from aristotle_mdr import models as MDR
 
 class GlossaryItem(MDR.concept):
     template = "aristotle_glossary/concepts/glossaryItem.html"
-    index = models.ManyToManyField(MDR._concept,blank=True,null=True)
+    index = models.ManyToManyField(MDR._concept,blank=True,null=True,related_name="related_glossary_items")
 
 class GlossaryAdditionalDefinition(MDR.aristotleComponent):
     glossaryItem = models.ForeignKey(GlossaryItem,related_name="alternate_definitions")
     registrationAuthority = models.ForeignKey(MDR.RegistrationAuthority)
-    description = models.TextField()
+    definition = models.TextField()
     @property
     def parentItem(self):
         return self.glossaryItem

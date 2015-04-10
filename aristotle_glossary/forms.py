@@ -1,5 +1,5 @@
 import autocomplete_light
-from aristotle_mdr.forms.wizards import UserAwareForm
+from aristotle_mdr.forms.creation_wizards import UserAwareForm
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _

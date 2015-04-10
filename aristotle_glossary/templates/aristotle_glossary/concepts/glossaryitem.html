@@ -1,0 +1,29 @@
+{% extends "aristotle_mdr/concepts/managedContent.html" %}
+{% load aristotle_tags %}
+
+{% block title %}{{ item.name }} {% endblock %}
+{% block asideContent %}
+{% endblock %}
+
+{% block objSpecific %}
+    {% if item.alternate_definitions.count > 0 %}
+        <h3>Alternate definitions</h3>
+        This term has alternate definitions for certain registration authorities, which are listed below:
+        <ul>
+        {% for alt in item.alternate_definitions.all %}
+            <li><em>{{ alt.registrationAuthority.name }}</em>:
+                {{ alt.description }}
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% if item.index.count > 0 %}
+        <h3>Concepts that refer to this glossary item</h3>
+        <ul>
+        {% for entry in item.index.all %}
+            <li><em>{{ entry.name }}</em>:
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

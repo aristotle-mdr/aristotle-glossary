@@ -1,7 +1,8 @@
 from aristotle_mdr import models as MDR
-from glossary_search import forms
+from aristotle_glossary import forms
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 def glossary(request):
     return render(request,"aristotle_glossary/glossary.html",
@@ -15,3 +16,7 @@ def glossary_search(request):
     """
     form = forms.GlossarySearchForm(user=request.user) # A form bound to the POST data
     return render(request,"aristotle_glossary/glossary_dialog.html",{'form':form})
+
+class DynamicTemplateView(TemplateView):
+    def get_template_names(self):
+        return ['aristotle_glossary/static/%s.html' % self.kwargs['template']]
