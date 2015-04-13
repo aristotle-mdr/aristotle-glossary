@@ -45,8 +45,8 @@ CKEDITOR.dialog.add( 'glossaryListDialog', function( editor )
             var g_id = $('#id_items').val()
             var link_text = $('#id_link').val();
 
-            content = '<a class="aristotle_glossary" data-aristotle_glossary_id="'+g_id+'" href="/item/'+g_id+'">' + link_text + '</a>';
-            editor.insertHtml( content );
+            content = '<a class="aristotle_glossary" data-aristotle-glossary-id="'+g_id+'" href="/item/'+g_id+'">' + link_text + '</a>';
+            editor.insertHtml( content,"unfiltered_html" );
         }
 	};
 });

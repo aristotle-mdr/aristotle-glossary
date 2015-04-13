@@ -1,8 +1,11 @@
-from aristotle_mdr import models as MDR
-from aristotle_glossary import forms
 from django.contrib.auth.decorators import permission_required
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
+
+from aristotle_mdr import models as MDR
+from aristotle_mdr.utils import url_slugify_concept
+from aristotle_glossary import models, forms
 
 def glossary(request):
     return render(request,"aristotle_glossary/glossary.html",
@@ -10,7 +13,7 @@ def glossary(request):
         })
 
 @permission_required('aristotle_mdr.user_is_editor')
-def glossary_search(request):
+def search_dialog(request):
     """This is a custom dialog for TinyMCE
     Use a view to make generating the form portions needed easier.
     """
@@ -20,3 +23,10 @@ def glossary_search(request):
 class DynamicTemplateView(TemplateView):
     def get_template_names(self):
         return ['aristotle_glossary/static/%s.html' % self.kwargs['template']]
+
+def json_list(request):
+    item_ids = request.GET.getlist('items')
+    items = [{'id':obj.id,'url':url_slugify_concept(obj),'name':obj.name,'description':obj.description}
+        for obj in models.GlossaryItem.objects.visible(request.user).filter(id__in=item_ids)
+    ]
+    return JsonResponse({"items": items})
