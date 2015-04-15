@@ -1,16 +1,16 @@
 language: python
 python:
-#  - "2.6" # unsupported due to reportlab, which is needed for PDF downloads, not supporting 2.6.
   - "2.7"
 
 env:
   - DJANGO=1.7
+  - DJANGO=1.8
 
 install:
   - "pip install coveralls"
   - "pip install -r requirements.txt"
   - "pip install ."
-  - pip install -q Django==$DJANGO --use-mirrors #Currently only runs on django1.7 due to tasty-api
+  - pip install -q Django==$DJANGO --use-mirrors
 
 # command to run tests
 script:
