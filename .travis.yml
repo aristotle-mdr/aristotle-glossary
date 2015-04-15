@@ -8,9 +8,9 @@ env:
 
 install:
   - "pip install coveralls"
+  - "pip install -r requirements.txt"
   - "pip install ."
   - pip install -q Django==$DJANGO --use-mirrors #Currently only runs on django1.7 due to tasty-api
-  - "pip install -r requirements.txt"
 
 # command to run tests
 script:
