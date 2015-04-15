@@ -1,0 +1,7 @@
+.glossary_link {
+    border-bottom:1px dashed #55f;
+}
+
+.glossary_link + div.popover * {
+    font-size:14px;
+}
