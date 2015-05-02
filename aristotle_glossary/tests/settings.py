@@ -30,7 +30,6 @@ MIGRATION_MODULES = DisableMigrations()
 
 INSTALLED_APPS = (
     #The good stuff
-    'haystack',
     'aristotle_glossary',
     'aristotle_mdr',
 ) + INSTALLED_APPS
