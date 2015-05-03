@@ -104,7 +104,7 @@ class GlossaryViewPage(LoggedInViewConceptPages,TestCase):
 
         s1 = models.Status.objects.create(
             concept=gitem,
-            registrationAuthority=self.ra,
+            registrationAuthority=ra2,
             registrationDate=datetime.date(2000,1,1),
             state=self.ra.public_state,
             )
@@ -123,7 +123,7 @@ class GlossaryViewPage(LoggedInViewConceptPages,TestCase):
         response = self.client.get(reverse('aristotle_glossary:json_list')+'?items=%s&items=%s'%(gitem.id,self.item1.id))
         data = json.loads(str(response.content))['items']
 
-        self.assertEqual(len(data),1)
+        self.assertEqual(len(data),2)
 
         for i in gmodels.GlossaryItem.objects.filter(pk__in=[item['id'] for item in data]):
             self.assertEqual(i.can_view(self.editor),True)
