@@ -9,23 +9,21 @@
         <a href="#">Glossary</a>
     </h1>
 </header>
-<section class="row">
 
-    <ul>
+    <dl class="browse">
         {% for term in terms %}
-        <li>
+        <dt>
         <a href="{% itemURL term %}">{{ term.name }}</a>
         {% with c=term.alternate_definitions.count %}
         {% if c > 0 %}
             <small>- {{ c }} additional meaning{{ c|pluralize }}</small>
         {% endif %}
         {% endwith %}
-        <div>
+        </dt>
+        <dd>
             {{ term.description | striptags |truncatewords:50 }}
-        </div>
-        </li>
+        </dd>
         {% endfor %}
-    </ul>
+    </dl>
 
-</section>
 {% endblock %}

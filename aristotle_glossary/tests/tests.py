@@ -23,7 +23,7 @@ class GlossaryPage(utils.LoggedInViewPages,TestCase):
 class GlossaryVisibility(utils.ManagedObjectVisibility,TestCase):
     def setUp(self):
         super(GlossaryVisibility, self).setUp()
-        self.item = models.GlossaryItem.objects.create(name="Test Glossary",
+        self.item = gmodels.GlossaryItem.objects.create(name="Test Glossary",
             workgroup=self.wg,
             )
 
