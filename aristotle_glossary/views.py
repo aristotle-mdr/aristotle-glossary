@@ -3,13 +3,12 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from aristotle_mdr import models as MDR
 from aristotle_mdr.utils import url_slugify_concept
 from aristotle_glossary import models, forms
 
 def glossary(request):
     return render(request,"aristotle_glossary/glossary.html",
-        {'terms':MDR.GlossaryItem.objects.visible(request.user).order_by('name').all()
+        {'terms':models.GlossaryItem.objects.visible(request.user).order_by('name').all()
         })
 
 @permission_required('aristotle_mdr.user_is_editor')

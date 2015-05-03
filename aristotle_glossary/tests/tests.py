@@ -4,6 +4,8 @@ from django.test import TestCase
 import aristotle_mdr.models as models
 import aristotle_mdr.tests.utils as utils
 import aristotle_glossary.models as gmodels
+
+from aristotle_mdr import perms
 from aristotle_mdr.tests.test_admin_pages import AdminPageForConcept
 from aristotle_mdr.tests.test_html_pages import LoggedInViewConceptPages
 from django.test.utils import setup_test_environment
@@ -40,14 +42,14 @@ class CustomGlossaryDialogTests(utils.LoggedInViewPages,TestCase):
     """
     def test_glossary_search_dialog(self):
         self.logout()
-        response = self.client.get(reverse('aristotle:glossary_search'))
+        response = self.client.get(reverse('aristotle_glossary:search_dialog'))
         self.assertEqual(response.status_code,302) # redirect to login
 
         self.login_editor()
-        response = self.client.get(reverse('aristotle:glossary_search'))
+        response = self.client.get(reverse('aristotle_glossary:search_dialog'))
         self.assertEqual(response.status_code,200)
 
-        response = self.client.post(reverse('aristotle:glossary_search'),{})
+        response = self.client.post(reverse('aristotle_glossary:search_dialog'),{})
         self.assertEqual(response.status_code,200)
 
 
@@ -57,15 +59,15 @@ class GlossaryViewPage(LoggedInViewConceptPages,TestCase):
 
     def test_view_glossary(self):
         self.logout()
-        response = self.client.get(reverse('aristotle:glossary'))
+        response = self.client.get(reverse('aristotle_glossary:glossary'))
         self.assertTrue(response.status_code,200)
 
     def test_glossary_ajax_list(self):
         self.logout()
         import json
         gitem = gmodels.GlossaryItem(name="Glossary item",workgroup=self.wg1)
-        response = self.client.get('/api/v1/glossarylist/?format=json&limit=0')
-        data = json.loads(str(response.content))['objects']
+        response = self.client.get(reverse('aristotle_glossary:json_list')+'?items=%s'%gitem.id)
+        data = json.loads(str(response.content))['items']
         self.assertEqual(data,[])
 
         gitem.readyToReview = True
@@ -79,8 +81,8 @@ class GlossaryViewPage(LoggedInViewConceptPages,TestCase):
 
         self.assertTrue(gitem.is_public())
 
-        response = self.client.get('/api/v1/glossarylist/?format=json&limit=0')
-        data = json.loads(str(response.content))['objects']
+        response = self.client.get(reverse('aristotle_glossary:json_list')+'?items=%s'%gitem.id)
+        data = json.loads(str(response.content))['items']
 
         self.assertEqual(len(data),gmodels.GlossaryItem.objects.all().visible(self.editor).count())
 
