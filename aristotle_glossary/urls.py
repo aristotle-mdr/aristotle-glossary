@@ -1,9 +1,12 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 
 from aristotle_glossary import views
 
+# Recommended to put this at "/glossary" when including these URLs
 urlpatterns = patterns('aristotle_glossary.views',
-    url(r'^glossary/?$', views.glossary, name='glossary'),
-    url(r'^glossary/search_dialog/?$',  views.glossary_search, name='glossary_search'),
+    url(r'^/?$', views.glossary, name='glossary'),
+    url(r'^jsonlist/', views.json_list, name='json_list'),
+    url(r'^search_dialog/?$',  views.search_dialog, name='search_dialog'),
+    url(r'^about/(?P<template>.+)/?$', views.DynamicTemplateView.as_view(), name="about"),
 )

@@ -29,7 +29,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
     install_requires = [
-        'aristotle_mdr'
+        'django-aristotle-metadata-registry'
     ]
 
 )
