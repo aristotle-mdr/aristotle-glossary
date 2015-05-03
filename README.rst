@@ -23,14 +23,14 @@ Quick start
         )
 
 #. Include the glossary URL definitions in your Django URLconf file. The glossary URLs
-   Must exist at `/glossary/` for the glossary definition popovers to work.
+   Must exist at `/glossary/` for the glossary definition popovers to work.::
 
         url(r'^glossary/', include('aristotle_glossary.urls')),
 
 #. Include links in your HTML to ensure the javascript and CSS are loaded for the popovers.
    This can be done by creating a new local template for your project
    based on the `aristotle_mdr/scripts.py` template. More information on how to override files
-   in in the `Aristotle Metadata Registry documentation on customisation<http://aristotle-metadata-registry.readthedocs.org/en/latest/installing/changing_styles.html#completely-overhauling-the-site>`_
+   in the `Aristotle Metadata Registry documentation on customisation <http://aristotle-metadata-registry.readthedocs.org/en/latest/installing/changing_styles.html#completely-overhauling-the-site>`_ ::
 
         <script src="{% static 'aristotle_glossary/aristotle.glossary.js' %}" type="text/javascript"></script>
         <link rel="stylesheet" href="{% static 'aristotle_glossary/aristotle.glossary.css' %}" />
