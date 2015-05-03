@@ -1,25 +1,28 @@
-Aristotle Glossary Extension
-============================
+Aristotle Glossary Extensions
+=============================
+
+.. image:: https://travis-ci.org/aristotle-mdr/aristotle-glossary.svg?branch=master
+    :target: https://travis-ci.org/aristotle-mdr/aristotle-glossary
+    
+.. image:: https://coveralls.io/repos/aristotle-mdr/aristotle-glossary/badge.svg
+    :target: https://coveralls.io/r/aristotle-mdr/aristotle-glossary
+
 The Aristotle Glossary Extension provides additional models for defining reusable
 terms and a rich text plugins for inserting references into object definitions.
-
-Screenshots
------------
 
 Quick start
 -----------
 
-1. Add "aristotle_glossary" to your INSTALLED_APPS setting like this::
+1. Add "aristotle_glossary" to your INSTALLED_APPS setting::
 
         INSTALLED_APPS = (
             ...
-            'haystack',
             'aristotle_mdr',
             'aristotle_glossary',
             ...
         )
 
-#. Include the glssary URL definitions in your Django URLconf file. The glossary URLs
+#. Include the glossary URL definitions in your Django URLconf file. The glossary URLs
    Must exist at `/glossary/` for the glossary definition popovers to work.
 
         url(r'^glossary/', include('aristotle_glossary.urls')),
@@ -58,21 +61,10 @@ Quick start
             },
         }
 
-    Form more information on customising the CKeditor toolbar consult the
+    For more information on customising the CKeditor toolbar consult the
     `Django-CKEditor documentation<https://github.com/django-ckeditor/django-ckeditor>`_.
 
-#. Run ``python manage.py migrate`` to update theyour database to include the models for the glossary.
-=======
-Aristotle Glossary Extensions
-=============================
-
-.. image:: https://travis-ci.org/aristotle-mdr/aristotle-glossary.svg?branch=master
-    :target: https://travis-ci.org/aristotle-mdr/aristotle-glossary
-    
-.. image:: https://coveralls.io/repos/aristotle-mdr/aristotle-glossary/badge.svg
-    :target: https://coveralls.io/r/aristotle-mdr/aristotle-glossary
-
-The Aristotle Glossary extension provides a mechanism for defining reusable terms and the rich text plugins for inserting these into object definitions.
+#. Run ``python manage.py migrate`` to update the database to include the models for the glossary.
 
 
 Screenshots
