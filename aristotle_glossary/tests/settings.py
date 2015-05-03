@@ -1,5 +1,6 @@
 import os, sys
 from aristotle_mdr.required_settings import *
+from aristotle_glosssary.settings import CKEDITOR_CONFIGS
 BASE = os.path.dirname(os.path.dirname(__file__))
 
 sys.path.insert(1,BASE)
