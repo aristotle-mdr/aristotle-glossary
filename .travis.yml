@@ -6,6 +6,9 @@ env:
   - DJANGO=1.7
   - DJANGO=1.8
 
+before_install:
+  - npm install -g less@1.7.4 # Required for static-precompiler
+
 install:
   - "pip install coveralls"
   - "pip install -r requirements.txt"

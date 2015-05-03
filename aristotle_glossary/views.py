@@ -24,7 +24,13 @@ class DynamicTemplateView(TemplateView):
         return ['aristotle_glossary/static/%s.html' % self.kwargs['template']]
 
 def json_list(request):
-    item_ids = request.GET.getlist('items')
+    item_ids = []
+    for iid in request.GET.getlist('items'):
+        try:
+            iid = int(iid)
+            item_ids.append(iid)
+        except:
+            return JsonResponse({"error": "Glossary IDs must be integers"})
     items = [{'id':obj.id,'url':url_slugify_concept(obj),'name':obj.name,'description':obj.description}
         for obj in models.GlossaryItem.objects.visible(request.user).filter(id__in=item_ids)
     ]
