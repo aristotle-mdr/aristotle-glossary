@@ -16,10 +16,37 @@ setup_test_environment()
 class GlossaryPage(utils.LoggedInViewPages,TestCase):
     def test_logged_out_glossary_page(self):
         self.logout()
+
+        ra2 = models.RegistrationAuthority.objects.create(name="Test Glossary RA")
+        self.wg2.registrationAuthorities.add(ra2)
+        self.wg2.save()
+
+        for i in range(5):
+            gitem = gmodels.GlossaryItem.objects.create(name="Glossary item %s"%i,workgroup=self.wg2)
+
+            models.Status.objects.create(
+                concept=gitem,
+                registrationAuthority=ra2,
+                registrationDate=datetime.date(2000,1,1),
+                state=self.ra.public_state,
+                )
+        gitem = gmodels.GlossaryItem.objects.create(name="Glossary item locked",workgroup=self.wg2)
+
+        models.Status.objects.create(
+            concept=gitem,
+            registrationAuthority=ra2,
+            registrationDate=datetime.date(2000,1,1),
+            state=self.ra.locked_state,
+            )
+        gmodels.GlossaryItem.objects.create(name="Glossary item unregistered",workgroup=self.wg2)
+
         response = self.client.get(reverse('aristotle_glossary:glossary',))
         self.assertEqual(response.status_code,200)
+        self.assertEqual(len(response.context['terms']),5)
         for term in response.context['terms']:
-            self.assertTrue(term.is_public)
+            self.assertTrue(term.is_public())
+        self.assertTrue('Glossary item locked' not in response.content)
+        self.assertTrue('Glossary item unregistered' not in response.content)
 
 #permissions test
 class GlossaryVisibility(utils.ManagedObjectVisibility,TestCase):
