@@ -11,6 +11,7 @@ install:
   - "pip install -r requirements.txt"
   - "pip install ."
   - pip install -q Django==$DJANGO --use-mirrors
+  - "pip install django_tools"
 
 # command to run tests
 script:
