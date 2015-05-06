@@ -3,7 +3,7 @@ Aristotle Glossary Extensions
 
 .. image:: https://travis-ci.org/aristotle-mdr/aristotle-glossary.svg?branch=master
     :target: https://travis-ci.org/aristotle-mdr/aristotle-glossary
-    
+
 .. image:: https://coveralls.io/repos/aristotle-mdr/aristotle-glossary/badge.svg
     :target: https://coveralls.io/r/aristotle-mdr/aristotle-glossary
 
