@@ -1,5 +1,9 @@
 {% extends 'aristotle_mdr/base.html' %}
-{% load aristotle_tags %}
+{% load aristotle_tags aristotle_glossary_tags static %}
+
+{% block extra_block_scripts %}
+    <link rel="stylesheet" href="{% static 'aristotle_glossary/aristotle.glossary.css' %}" />
+{% endblock %}
 
 {% block title %}Glossary{% endblock %}
 {% block content %}
@@ -9,23 +13,32 @@
         <a href="#">Glossary</a>
     </h1>
 </header>
-<section class="row">
 
-    <ul>
-        {% for term in terms %}
-        <li>
-        <a href="{% itemURL term %}">{{ term.name }}</a>
-        {% with c=term.alternate_definitions.count %}
-        {% if c > 0 %}
-            <small>- {{ c }} additional meaning{{ c|pluralize }}</small>
-        {% endif %}
-        {% endwith %}
-        <div>
+<div class="glossary_toc">
+{% for letter,link in terms|glossary_top_links %}
+    {% if link %}
+        <a class="glossary_toc active" href="{{link}}">{{letter|title}}</a>
+    {% else %}
+        <span class="glossary_toc inactive">{{letter|title}}</span>
+    {% endif %}
+{% endfor %}
+</div>
+<dl class="glossary_list">
+    {% for term,letter in terms|with_letter %}
+        <dt>
+            {% ifchanged letter %}
+                <a class="letterbreak" id="glossary_{{letter}}" href="#glossary_{{letter}}" title='Permanent link to this section'>{{letter|title}}</a>
+            {% endifchanged %}        <a href="{% itemURL term %}">{{ term.name }}</a>
+            {% with c=term.alternate_definitions.count %}
+            {% if c > 0 %}
+                <small>- {{ c }} additional meaning{{ c|pluralize }}</small>
+            {% endif %}
+            {% endwith %}
+        </dt>
+        <dd>
             {{ term.description | striptags |truncatewords:50 }}
-        </div>
-        </li>
-        {% endfor %}
-    </ul>
+        </dd>
+    {% endfor %}
+</dl>
 
-</section>
 {% endblock %}
