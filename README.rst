@@ -1,33 +1,36 @@
-Aristotle Glossary Extension
-============================
+Aristotle Glossary Extensions
+=============================
+
+.. image:: https://travis-ci.org/aristotle-mdr/aristotle-glossary.svg?branch=master
+    :target: https://travis-ci.org/aristotle-mdr/aristotle-glossary
+
+.. image:: https://coveralls.io/repos/aristotle-mdr/aristotle-glossary/badge.svg
+    :target: https://coveralls.io/r/aristotle-mdr/aristotle-glossary
+
 The Aristotle Glossary Extension provides additional models for defining reusable
 terms and a rich text plugins for inserting references into object definitions.
-
-Screenshots
------------
 
 Quick start
 -----------
 
-1. Add "aristotle_glossary" to your INSTALLED_APPS setting like this::
+1. Add "aristotle_glossary" to your INSTALLED_APPS setting::
 
         INSTALLED_APPS = (
             ...
-            'haystack',
             'aristotle_mdr',
             'aristotle_glossary',
             ...
         )
 
-#. Include the glssary URL definitions in your Django URLconf file. The glossary URLs
-   Must exist at `/glossary/` for the glossary definition popovers to work.
+#. Include the glossary URL definitions in your Django URLconf file. The glossary URLs
+   Must exist at `/glossary/` for the glossary definition popovers to work.::
 
         url(r'^glossary/', include('aristotle_glossary.urls')),
 
 #. Include links in your HTML to ensure the javascript and CSS are loaded for the popovers.
    This can be done by creating a new local template for your project
    based on the `aristotle_mdr/scripts.py` template. More information on how to override files
-   in in the `Aristotle Metadata Registry documentation on customisation<http://aristotle-metadata-registry.readthedocs.org/en/latest/installing/changing_styles.html#completely-overhauling-the-site>`_
+   in the `Aristotle Metadata Registry documentation on customisation <http://aristotle-metadata-registry.readthedocs.org/en/latest/installing/changing_styles.html#completely-overhauling-the-site>`_ ::
 
         <script src="{% static 'aristotle_glossary/aristotle.glossary.js' %}" type="text/javascript"></script>
         <link rel="stylesheet" href="{% static 'aristotle_glossary/aristotle.glossary.css' %}" />
@@ -58,7 +61,26 @@ Quick start
             },
         }
 
-    Form more information on customising the CKeditor toolbar consult the
+    For more information on customising the CKeditor toolbar consult the
     `Django-CKEditor documentation<https://github.com/django-ckeditor/django-ckeditor>`_.
 
-#. Run ``python manage.py migrate`` to update theyour database to include the models for the glossary.
+#. Run ``python manage.py migrate`` to update the database to include the models for the glossary.
+
+
+Screenshots
+-----------
+A complete glossary
+
+.. image:: https://cloud.githubusercontent.com/assets/2173174/7443527/8b439c18-f195-11e4-8a97-9286a15983b5.png
+
+Inserting a term into an existing description:
+
+.. image:: https://cloud.githubusercontent.com/assets/2173174/7443530/b9d333f4-f195-11e4-8ed7-f8c52f0e958a.png
+
+When inserted into an item, hovering gives a brief description:
+
+.. image:: https://cloud.githubusercontent.com/assets/2173174/7443535/e67ae5c8-f195-11e4-8595-afd2833d901d.png
+
+Clicking the link then takes a user to the complete glossary term:
+
+.. image:: https://cloud.githubusercontent.com/assets/2173174/7443526/52f433c2-f195-11e4-8b31-7dca1f024d1c.png
