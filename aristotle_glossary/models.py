@@ -29,7 +29,7 @@ class GlossaryAdditionalDefinition(MDR.aristotleComponent):
 def add_concepts_to_glossary_index(sender, instance, created, **kwargs):
     if not issubclass(sender, MDR._concept):
         return
-    if 'data-aristotle_glossary_id' in instance.description:
+    if 'data-aristotle_glossary_id' in instance.definition:
         glossary_id = 1 # TODO: write code to find the id of the glossary item being inserted
         try:
             g = GlossaryItem.objects.get(pk=glossary_id)

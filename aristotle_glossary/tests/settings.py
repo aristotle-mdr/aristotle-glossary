@@ -34,7 +34,6 @@ MIGRATION_MODULES = DisableMigrations()
 INSTALLED_APPS = (
     #The good stuff
     'aristotle_glossary',
-    'aristotle_mdr',
 ) + INSTALLED_APPS
 
 HAYSTACK_CONNECTIONS = {

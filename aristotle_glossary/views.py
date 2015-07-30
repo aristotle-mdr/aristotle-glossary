@@ -31,7 +31,7 @@ def json_list(request):
             item_ids.append(iid)
         except:
             return JsonResponse({"error": "Glossary IDs must be integers"})
-    items = [{'id':obj.id,'url':url_slugify_concept(obj),'name':obj.name,'description':obj.description}
+    items = [{'id':obj.id,'url':url_slugify_concept(obj),'name':obj.name,'definition':obj.definition}
         for obj in models.GlossaryItem.objects.visible(request.user).filter(id__in=item_ids)
     ]
     return JsonResponse({"items": items})

@@ -12,7 +12,7 @@
         <ul>
         {% for alt in item.alternate_definitions.all %}
             <li><em>{{ alt.registrationAuthority.name }}</em>:
-                {{ alt.description }}
+                {{ alt.definition }}
             </li>
         {% endfor %}
         </ul>
