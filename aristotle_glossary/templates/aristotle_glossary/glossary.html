@@ -36,7 +36,7 @@
             {% endwith %}
         </dt>
         <dd>
-            {{ term.description | striptags |truncatewords:50 }}
+            {{ term.definition | striptags |truncatewords:50 }}
         </dd>
     {% endfor %}
 </dl>

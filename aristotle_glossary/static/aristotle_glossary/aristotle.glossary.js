@@ -41,7 +41,7 @@ function generateGlossaryPopovers() {
                         trigger: "manual",
                         template:template_html,
                         title:item.name,
-                        content:item.description,
+                        content:item.definition,
                         toggle:'popover',
                     }).on("mouseenter", function () {
                         var _this = this;
