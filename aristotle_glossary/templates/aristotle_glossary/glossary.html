@@ -28,7 +28,8 @@
         <dt>
             {% ifchanged letter %}
                 <a class="letterbreak" id="glossary_{{letter}}" href="#glossary_{{letter}}" title='Permanent link to this section'>{{letter|title}}</a>
-            {% endifchanged %}        <a href="{% itemURL term %}">{{ term.name }}</a>
+            {% endifchanged %}
+            <a href="{{ term.get_absolute_url }}">{{ term.name }}</a>
             {% with c=term.alternate_definitions.count %}
             {% if c > 0 %}
                 <small>- {{ c }} additional meaning{{ c|pluralize }}</small>
