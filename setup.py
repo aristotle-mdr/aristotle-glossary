@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-aristotle-glossary',
-    version='0.1',
+    version='0.1-v1.2.0',
     packages=['aristotle_glossary'],
     include_package_data=True,
     license='BSD Licence',
@@ -29,7 +29,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
     install_requires = [
-        'django-aristotle-metadata-registry'
+        'aristotle-metadata-registry>=1.2.0'
     ]
 
 )
