@@ -13,6 +13,12 @@ from aristotle_mdr.tests.main.test_html_pages import LoggedInViewConceptPages
 from django.test.utils import setup_test_environment
 setup_test_environment()
 
+
+def setUpModule():
+    from django.core.management import call_command
+    call_command('loadhelp', 'aristotle_help/concept_help/*', verbosity=0, interactive=False)
+
+
 class GlossaryPage(utils.LoggedInViewPages,TestCase):
     def test_logged_out_glossary_page(self):
         self.logout()
