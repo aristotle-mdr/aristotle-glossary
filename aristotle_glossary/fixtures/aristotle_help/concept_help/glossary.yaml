@@ -1,0 +1,11 @@
+- model: aristotle_mdr_help.concepthelp
+  fields:
+    app_label: aristotle_glossary
+    concept_type: glossaryitem
+    language: en
+    brief: A glossary item is a definition for a reusable term
+    offical_definition: 
+    official_reference: 
+    official_link: 
+    body: 
+    creation_tip:
