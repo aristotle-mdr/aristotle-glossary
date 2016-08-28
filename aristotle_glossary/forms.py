@@ -17,4 +17,5 @@ class GlossarySearchForm(UserAwareForm):
                 widget=widgets.ConceptAutocompleteSelect(
                     model=GlossaryItem
                 )
+            )
     link  = forms.CharField(required=False,label=_('Link text'))
