@@ -50,8 +50,8 @@ class GlossaryPage(utils.LoggedInViewPages,TestCase):
         self.assertEqual(len(response.context['terms']),5)
         for term in response.context['terms']:
             self.assertTrue(term.is_public())
-        self.assertContains(response, 'Glossary item locked')
-        self.assertContains(response, 'Glossary item unregistered')
+        self.assertNotContains(response, 'Glossary item locked')
+        self.assertNotContains(response, 'Glossary item unregistered')
 
 #permissions test
 class GlossaryVisibility(utils.ManagedObjectVisibility,TestCase):
