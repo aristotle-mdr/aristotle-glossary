@@ -91,9 +91,6 @@ class GlossaryViewPage(LoggedInViewConceptPages,TestCase):
     url_name='glossary'
     itemType=gmodels.GlossaryItem
 
-    def get_help_page(self):
-        return reverse('aristotle_glossary:about',args=[self.item1._meta.model_name])
-
     def test_view_glossary(self):
         self.logout()
         response = self.client.get(reverse('aristotle_glossary:glossary'))
