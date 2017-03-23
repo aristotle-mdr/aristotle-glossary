@@ -16,7 +16,7 @@ setup_test_environment()
 
 def setUpModule():
     from django.core.management import call_command
-    call_command('loadhelp', 'aristotle_help/concept_help/*', verbosity=0, interactive=False)
+    call_command('load_aristotle_help', verbosity=0, interactive=False)
 
 
 class GlossaryPage(utils.LoggedInViewPages,TestCase):
