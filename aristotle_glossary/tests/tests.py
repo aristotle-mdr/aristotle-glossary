@@ -154,6 +154,6 @@ class GlossaryViewPage(LoggedInViewConceptPages,TestCase):
         self.logout()
 
         response = self.client.get(reverse('aristotle_glossary:json_list')+'?items=SELECT * FROM Users')
-        data = utils.get_json_from_response(response)['items']
+        data = utils.get_json_from_response(response)
         self.assertEqual(data.get('data',None),None)
         self.assertEqual(data['error'],"Glossary IDs must be integers")
