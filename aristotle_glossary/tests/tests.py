@@ -98,10 +98,9 @@ class GlossaryViewPage(LoggedInViewConceptPages,TestCase):
 
     def test_glossary_ajax_list_public(self):
         self.logout()
-        import json
         gitem = gmodels.GlossaryItem.objects.create(name="Glossary item",workgroup=self.wg1)
         response = self.client.get(reverse('aristotle_glossary:json_list')+'?items=%s'%gitem.id)
-        data = json.loads(str(response.content))['items']
+        data = utils.get_json_from_response(response)['items']
         self.assertEqual(data,[])
 
         self.ra.register(gitem, models.STATES.standard, self.su)
@@ -109,7 +108,7 @@ class GlossaryViewPage(LoggedInViewConceptPages,TestCase):
         self.assertTrue(gitem.is_public())
 
         response = self.client.get(reverse('aristotle_glossary:json_list')+'?items=%s'%gitem.id)
-        data = json.loads(str(response.content))['items']
+        data = utils.get_json_from_response(response)['items']
         self.assertEqual(len(data), 1)
         self.assertEqual(data[0]['id'], gitem.pk)
 
@@ -117,14 +116,12 @@ class GlossaryViewPage(LoggedInViewConceptPages,TestCase):
     def test_glossary_ajax_list_editor(self):
         self.login_editor()
 
-        import json
-
         ra2 = models.RegistrationAuthority.objects.create(name="Test Glossary RA")
         self.wg2.save()
 
         gitem = gmodels.GlossaryItem.objects.create(name="Glossary item",workgroup=self.wg2)
         response = self.client.get(reverse('aristotle_glossary:json_list')+'?items=%s'%gitem.id)
-        data = json.loads(str(response.content))['items']
+        data = utils.get_json_from_response(response)['items']
         self.assertEqual(len(data),0)
 
         s1 = models.Status.objects.create(
@@ -138,7 +135,7 @@ class GlossaryViewPage(LoggedInViewConceptPages,TestCase):
         self.assertTrue(gitem.is_public())
 
         response = self.client.get(reverse('aristotle_glossary:json_list')+'?items=%s'%gitem.id)
-        data = json.loads(str(response.content))['items']
+        data = utils.get_json_from_response(response)['items']
 
         self.assertEqual(len(data),1)
 
@@ -146,7 +143,7 @@ class GlossaryViewPage(LoggedInViewConceptPages,TestCase):
             self.assertEqual(i.can_view(self.editor),True)
 
         response = self.client.get(reverse('aristotle_glossary:json_list')+'?items=%s&items=%s'%(gitem.id,self.item1.id))
-        data = json.loads(str(response.content))['items']
+        data = utils.get_json_from_response(response)['items']
 
         self.assertEqual(len(data),2)
 
@@ -155,8 +152,8 @@ class GlossaryViewPage(LoggedInViewConceptPages,TestCase):
 
     def test_malformed_glossary_ajax_list(self):
         self.logout()
-        import json
+
         response = self.client.get(reverse('aristotle_glossary:json_list')+'?items=SELECT * FROM Users')
-        data = json.loads(str(response.content))
+        data = utils.get_json_from_response(response)['items']
         self.assertEqual(data.get('data',None),None)
         self.assertEqual(data['error'],"Glossary IDs must be integers")
