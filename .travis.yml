@@ -1,19 +1,17 @@
 language: python
 python:
   - "2.7"
+  - "3.5"
 
 env:
   - DJANGO=1.8
-
-before_install:
-  - npm install -g less@1.7.4 # Required for static-precompiler
+  - DJANGO=1.10
 
 install:
-  - "pip install coveralls"
   - "pip install -r requirements.txt"
+  - "pip install -r requirements.test.txt"
   - "pip install ."
-  - pip install -q Django==$DJANGO --use-mirrors
-  - "pip install django_tools"
+  - pip install -q Django==$DJANGO
 
 # command to run tests
 script:
