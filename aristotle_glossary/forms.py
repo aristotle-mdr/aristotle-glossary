@@ -1,3 +1,4 @@
+import autocomplete_light
 from aristotle_mdr.forms.creation_wizards import UserAwareForm
 
 from django import forms
