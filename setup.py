@@ -17,7 +17,7 @@ setup(
     long_description=README,
     url='https://github.com/aristotle-mdr/aristotle-glossary',
     author='Samuel Spencer',
-    author_email='sam@sqbl.org',
+    author_email='sam@aristotlemetadata.com',
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
@@ -29,7 +29,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
     install_requires = [
-        'aristotle-metadata-registry>=1.2.3'
+        'aristotle-metadata-registry>=1.5.0'
     ]
 
 )
