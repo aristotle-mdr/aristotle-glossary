@@ -38,13 +38,11 @@ nosetests.xml
 # My stuff
 # no vim temporary files.
 *~
-*.pyc
 .*.sw[mnop]
 *.db3
-*.db
 *.sqlite3
 whoosh_index/
 
+#migrations/
 src/
 /static/
-/docs/_build

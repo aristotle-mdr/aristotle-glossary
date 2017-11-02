@@ -1,22 +1,32 @@
+# Lets run on the new infrastructure
+sudo: false
+
 language: python
 python:
-  - "2.7"
+  - "3.5"
+
+services:
+ - postgresql
 
 env:
-  - DJANGO=1.8
+  - DJANGO_VERSION=1.8  DB=postgres ARISTOTLE_VERSION=1.6
+  - DJANGO_VERSION=1.10 DB=postgres ARISTOTLE_VERSION=1.6
+  - DJANGO_VERSION=1.10 DB=postgres ARISTOTLE_VERSION=develop
 
-before_install:
-  - npm install -g less@1.7.4 # Required for static-precompiler
+before_script:
+# We only test elasticsearch, and a small setup time is recommended
+  - sleep 10; 
+  - psql -c 'create database aristotle_test_db;' -U postgres
 
 install:
-  - "pip install coveralls"
-  - "pip install -r requirements.txt"
-  - "pip install ."
-  - pip install -q Django==$DJANGO --use-mirrors
-  - "pip install django_tools"
+  - pip install tox
 
 # command to run tests
 script:
-  - coverage run --branch --source=aristotle_glossary manage.py test
+  - tox -e dj$DJANGO_VERSION-test-db-$DB-search-whoosh-aristotle$ARISTOTLE_VERSION --skip-missing-interpreters --workdir /tmp/tox
 after_success:
   - coveralls
+
+matrix:
+  allow_failures:
+    - env: DJ=1.10 DB=postgres ARISTOTLE_VERSION=develop
