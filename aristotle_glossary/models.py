@@ -2,18 +2,21 @@ from __future__ import unicode_literals
 from __future__ import print_function
 from __future__ import absolute_import
 
-from django.contrib.auth.models import User, Group, Permission
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
 from django.dispatch import receiver
 
 from aristotle_mdr import models as MDR
+import reversion
+
 
 class GlossaryItem(MDR.concept):
     template = "aristotle_glossary/concepts/glossaryItem.html"
     index = models.ManyToManyField(MDR._concept,blank=True,null=True,related_name="related_glossary_items")
 
+
+@reversion.register()
 class GlossaryAdditionalDefinition(MDR.aristotleComponent):
     glossaryItem = models.ForeignKey(GlossaryItem,related_name="alternate_definitions")
     registrationAuthority = models.ForeignKey(MDR.RegistrationAuthority)
@@ -24,7 +27,7 @@ class GlossaryAdditionalDefinition(MDR.aristotleComponent):
     class Meta:
         unique_together = ('glossaryItem', 'registrationAuthority',)
 
-#@receiver(post_save,sender=MDR._concept)
+
 @receiver(post_save)
 def add_concepts_to_glossary_index(sender, instance, created, **kwargs):
     if not issubclass(sender, MDR._concept):
